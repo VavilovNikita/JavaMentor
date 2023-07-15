@@ -1,14 +1,17 @@
 package com.StringCrud;
 
 import com.StringCrud.models.Command;
+import com.StringCrud.models.CommandType;
 import com.StringCrud.models.Person;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class Parser {
 
-
+    ObjectMapper objectMapper = new ObjectMapper();
     private final Validator validator;
 
     public Parser(Validator validator) {
@@ -18,10 +21,9 @@ public class Parser {
     public Command parse(String command) {
 
         List<String> args = Arrays.asList(command.split(" "));
-        args.set(0, args.get(0).toUpperCase());
         validator.validate(command);
 
-        switch (args.get(0)) {
+        switch (args.get(0).toUpperCase()) {
             case "GET" -> {
                 return parseGet(args);
             }
@@ -39,24 +41,33 @@ public class Parser {
     }
 
     private Command parseCreate(List<String> args) {
-        return new Command("CREATE", new Person(args.get(1), Integer.parseInt(args.get(2))));
+        try {
+            return new Command(CommandType.CREATE, objectMapper.readValue(args.get(1), Person.class));
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private Command parseGet(List<String> args) {
         return args.size() == 1
-                ? new Command("GET_ALL")
-                : new Command("GET", Integer.parseInt(args.get(1)));
+                ? new Command(CommandType.GET_ALL)
+                : new Command(CommandType.GET, Integer.parseInt(args.get(1)));
     }
 
     private Command parseUpdate(List<String> args) {
         int id = Integer.parseInt(args.get(1));
-        Person person = new Person(args.get(2), Integer.parseInt(args.get(3)));
-        return new Command("UPDATE", id, person);
+        Person person;
+        try {
+            person = objectMapper.readValue(args.get(2), Person.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        return new Command(CommandType.UPDATE, id, person);
     }
 
     private Command parseDelete(List<String> args) {
         int id = Integer.parseInt(args.get(1));
-        return new Command("DELETE", id);
+        return new Command(CommandType.DELETE, id);
     }
 
 }

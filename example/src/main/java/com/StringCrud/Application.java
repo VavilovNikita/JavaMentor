@@ -17,7 +17,7 @@ public class Application {
         Service service = new Service(storage);
 
         try (Scanner scanner = new Scanner(System.in)) {
-            System.out.println(Print.HELP);
+            Print.Help();
             while (true) {
                 try {
                     System.out.print("Enter:");
@@ -27,7 +27,7 @@ public class Application {
                         break;
                     }
                     if ("HELP".equals(line) || "help".equals(line)) {
-                        System.out.println(Print.HELP);
+                        Print.Help();
                         continue;
                     }
                     Command command = parser.parse(line);
