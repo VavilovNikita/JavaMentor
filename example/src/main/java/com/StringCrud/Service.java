@@ -17,12 +17,12 @@ public class Service {
 
     public void execute(Command command) {
 
-        switch (command.getCommand()) {
-            case "GET" -> get(command);
-            case "GET_ALL" -> getAll();
-            case "CREATE" -> create(command);
-            case "UPDATE" -> update(command);
-            case "DELETE" -> delete(command);
+        switch (command.getCommandType()) {
+            case GET -> get(command);
+            case GET_ALL -> getAll();
+            case CREATE -> create(command);
+            case UPDATE -> update(command);
+            case DELETE -> delete(command);
         }
     }
 

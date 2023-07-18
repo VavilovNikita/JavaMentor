@@ -11,12 +11,11 @@ public class Validator {
         }
 
         List<String> args = Arrays.asList(command.split(" "));
-        args.set(0,args.get(0).toUpperCase());
         if (args.isEmpty()) {
             throwIllegalCommandException();
         }
 
-        switch (args.get(0)) {
+        switch (args.get(0).toUpperCase()) {
             case "GET" -> validateGetCommand(args);
             case "CREATE" -> validateCreateCommand(args);
             case "UPDATE" -> validateUpdateCommand(args);
@@ -30,7 +29,7 @@ public class Validator {
             throwIllegalCommandException();
         }
 
-        if (!"GET".equals(args.get(0))) {
+        if (!"GET".equalsIgnoreCase(args.get(0))) {
             throwIllegalCommandException();
         }
 
@@ -43,7 +42,7 @@ public class Validator {
         if (args.size() < 2) {
             throwIllegalCommandException();
         }
-        if (!"CREATE".equals(args.get(0))) {
+        if (!"CREATE".equalsIgnoreCase(args.get(0))) {
             throwIllegalCommandException();
         }
     }
@@ -52,7 +51,7 @@ public class Validator {
         if (args.size() < 3) {
             throwIllegalCommandException();
         }
-        if (!"UPDATE".equals(args.get(0))) {
+        if (!"UPDATE".equalsIgnoreCase(args.get(0))) {
             throwIllegalCommandException();
         }
         if (isNotInt(args.get(1))) {
@@ -65,7 +64,7 @@ public class Validator {
             throwIllegalCommandException();
         }
 
-        if (!"DELETE".equals(args.get(0))) {
+        if (!"DELETE".equalsIgnoreCase(args.get(0))) {
             throwIllegalCommandException();
         }
 
