@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class ValidatorTest {
+public class TestValidator {
 
     private final Validator validator = new Validator();
     private static final String PERSON_JSON_STRING = "{\"name\": \"Bob\", \"age\": 19}";

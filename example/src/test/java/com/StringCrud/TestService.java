@@ -11,7 +11,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ServiceTest {
+public class TestService {
 
     private static final Person PERSON_1 = new Person("Bob", 19);
     private static final Person PERSON_2 = new Person("Alice", 21);
