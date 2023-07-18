@@ -17,24 +17,24 @@ public class Application {
         Service service = new Service(storage);
 
         try (Scanner scanner = new Scanner(System.in)) {
-            Print.Help();
+            Printer.getPrinter().help();
             while (true) {
                 try {
-                    System.out.print("Enter:");
+                    Printer.getPrinter().enter();
                     String line = scanner.nextLine();
-                    if ("QUIT".equals(line) || "quit".equals(line)) {
+                    if ("QUIT".equalsIgnoreCase(line)) {
                         loader.saveToFile(service.getMap());
                         break;
                     }
                     if ("HELP".equals(line) || "help".equals(line)) {
-                        Print.Help();
+                        Printer.getPrinter().help();
                         continue;
                     }
                     Command command = parser.parse(line);
                     service.execute(command);
 
                 } catch (Exception e) {
-                    System.out.println(e.getMessage());
+                    Printer.getPrinter().printMessage(e.getMessage());
                 }
 
             }

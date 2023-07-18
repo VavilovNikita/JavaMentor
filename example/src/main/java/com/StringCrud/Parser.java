@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Parser {
 
-    ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper = new ObjectMapper();
     private final Validator validator;
 
     public Parser(Validator validator) {
@@ -59,10 +59,10 @@ public class Parser {
         Person person;
         try {
             person = objectMapper.readValue(args.get(2), Person.class);
+            return new Command(CommandType.UPDATE, id, person);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-        return new Command(CommandType.UPDATE, id, person);
     }
 
     private Command parseDelete(List<String> args) {
