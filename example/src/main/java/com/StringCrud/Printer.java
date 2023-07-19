@@ -19,7 +19,7 @@ public class Printer {
                 "HELP");
     }
     public void enter(){
-        System.out.println("Enter: ");
+        System.out.print("Enter: ");
     }
     public void printMessage(String s){
         System.out.println(s);
